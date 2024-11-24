@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="sign-up.css" />
+    <!-- Font Awesome CDN -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <title>Sign Up</title>
+  </head>
+  <body>
+    <div class="sign-up">
+      <div class="content-wrapper">
+        <div class="welcome-section">
+          <div class="logo-wrapper">
+            <img
+              src="images/logo/logo-update.jpg"
+              alt="Logo Kebun Jambu Marina"
+              class="logo"
+            />
+          </div>
+          <h1>Selamat Datang!</h1>
+          <p class="description">
+            Kebun Jambu Marina menawarkan berbagai kegiatan seru dan edukatif
+            untuk semua kalangan. Mulai dari memetik jambu merah segar langsung
+            dari kebunnya, berkuda mengelilingi perkebunan yang asri, hingga
+            berburu spot foto instagramable di antara hamparan hijau yang
+            mempesona.
+          </p>
+        </div>
+
+        <div class="form-section">
+          <h2>Sign Up</h2>
+          <p>Sudah punya akun? <a href="/signin">Sign In</a></p>
+          <form
+            action="/signup"
+            method="post"
+            enctype="multipart/form-data"
+            onsubmit="return validateUsername()"
+          >
+            <label>Upload Foto (Opsional, Max 300KB)</label>
+            <input
+              type="file"
+              name="photo"
+              accept="image/*"
+              onchange="checkFileSize(this)"
+            />
+
+            <label>Username</label>
+            <input
+              type="text"
+              name="username"
+              id="username"
+              required
+              placeholder="Masukkan username"
+            />
+            <p id="username-feedback"></p>
+
+            <label>Password</label>
+            <div class="password-field">
+              <input
+                type="password"
+                name="password"
+                id="password-input"
+                required
+                placeholder="Masukkan password"
+              />
+              <i
+                class="fas fa-eye-slash icon-eye"
+                onclick="togglePasswordVisibility()"
+              ></i>
+            </div>
+
+            <label>Nama Lengkap</label>
+            <input
+              type="text"
+              name="full-name"
+              required
+              placeholder="Masukkan nama lengkap"
+            />
+
+            <label>Telepon</label>
+            <input
+              type="tel"
+              name="phone"
+              id="phone"
+              required
+              placeholder="Masukkan telepon"
+              oninput="validatePhone()"
+            />
+
+            <label>Email</label>
+            <input
+              type="email"
+              name="email"
+              required
+              placeholder="Masukkan email"
+            />
+
+            <fieldset>
+              <legend>Alamat Lengkap Saat Ini</legend>
+              <label>RT</label>
+              <input
+                type="number"
+                name="rt"
+                id="rt"
+                required
+                placeholder="Contoh : 001"
+                oninput="validateNumberInput('rt')"
+              />
+
+              <label>RW</label>
+              <input
+                type="number"
+                name="rw"
+                id="rw"
+                required
+                placeholder="Contoh : 002"
+                oninput="validateNumberInput('rw')"
+              />
+
+              <label>Jalan</label>
+              <input
+                type="text"
+                name="jalan"
+                required
+                placeholder="Contoh : Jl. Kenangan-Mantan"
+              />
+
+              <label>Desa</label>
+              <input
+                type="text"
+                name="desa"
+                required
+                placeholder="Contoh : Desa Shanghai"
+              />
+
+              <label>Kecamatan</label>
+              <input
+                type="text"
+                name="kecamatan"
+                required
+                placeholder="Contoh : Kec. Undaan"
+              />
+
+              <label>Kota</label>
+              <input
+                type="text"
+                name="kota"
+                required
+                placeholder="Contoh : Kota Kudus"
+              />
+
+              <label>Provinsi</label>
+              <input
+                type="text"
+                name="provisi"
+                required
+                placeholder="Contoh : Prov. Jawa Tengah"
+              />
+
+              <label>Negara</label>
+              <input
+                type="text"
+                name="negara"
+                required
+                placeholder="Contoh : Indonesia"
+              />
+
+              <label>Kode Pos</label>
+              <input
+                type="number"
+                name="kode-pos"
+                id="kode-pos"
+                required
+                placeholder="Contoh : 59372"
+                oninput="validateNumberInput('kode-pos')"
+              />
+
+              <label>Detail Alamat</label>
+              <textarea
+                name="detail-alamat"
+                required
+                placeholder="Contoh : Jauh dari mata, namun dekat dari hati, aww"
+              ></textarea>
+            </fieldset>
+
+            <!-- Hidden field for role, default to 'user' -->
+            <input type="hidden" name="role" value="user" />
+
+            <button type="submit">Sign Up</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function checkFileSize(input) {
+        const file = input.files[0];
+        if (file && file.size > 300 * 1024) {
+          alert("Ukuran file tidak boleh melebihi 300KB.");
+          input.value = "";
+        }
+      }
+
+      function togglePasswordVisibility() {
+        const passwordInput = document.getElementById("password-input");
+        const eyeIcon = document.querySelector(".icon-eye");
+
+        if (passwordInput.type === "password") {
+          passwordInput.type = "text";
+          eyeIcon.classList.remove("fa-eye-slash");
+          eyeIcon.classList.add("fa-eye");
+        } else {
+          passwordInput.type = "password";
+          eyeIcon.classList.remove("fa-eye");
+          eyeIcon.classList.add("fa-eye-slash");
+        }
+      }
+
+      document
+        .getElementById("username")
+        .addEventListener("input", function () {
+          const username = this.value;
+
+          // Check if the username contains spaces
+          if (/\s/.test(username)) {
+            // Show alert or display a message
+            alert("Username tidak boleh mengandung spasi.");
+            // Optionally, you can clear the input or disable submit button
+            this.value = username.replace(/\s/g, ""); // Remove spaces
+          }
+
+          // Cek ketersediaan username di server
+          checkUsernameAvailability(username);
+        });
+
+      function checkUsernameAvailability(username) {
+        if (username.length > 0) {
+          // Kirim request ke server untuk memeriksa apakah username sudah ada
+          fetch(`/check-username?username=${username}`)
+            .then((response) => response.json())
+            .then((data) => {
+              const feedback = document.getElementById("username-feedback");
+              if (data.available) {
+                feedback.textContent = "Username tersedia!";
+                feedback.style.color = "green";
+              } else {
+                feedback.textContent = "Username sudah digunakan.";
+                feedback.style.color = "red";
+              }
+            })
+            .catch((error) =>
+              console.error("Error checking username availability:", error)
+            );
+        }
+      }
+
+      function validateUsername() {
+        const username = document.getElementById("username").value;
+
+        // Check if the username contains spaces
+        if (/\s/.test(username)) {
+          alert("Username tidak boleh mengandung spasi.");
+          return false; // Prevent form submission
+        }
+
+        // Check if username is available (based on feedback text)
+        const feedback =
+          document.getElementById("username-feedback").textContent;
+        if (feedback.includes("sudah digunakan")) {
+          alert("Username tidak tersedia.");
+          return false; // Prevent form submission
+        }
+
+        return true; // Allow form submission
+      }
+
+      function validatePhone() {
+        const phoneInput = document.getElementById("phone");
+        const phoneValue = phoneInput.value;
+        const phoneRegex = /^[0-9\+\-\(\)\s]*$/; // Untuk memvalidasi nomor telepon, bisa termasuk simbol seperti +, -, dan spasi
+        if (!phoneRegex.test(phoneValue)) {
+          alert(
+            "Telepon hanya boleh berisi angka dan simbol yang sah (+, -, (), spasi)."
+          );
+          phoneInput.value = phoneValue.replace(/[^0-9\+\-\(\)\s]/g, ""); // Menghapus karakter yang tidak valid
+        }
+      }
+
+      function validateNumberInput(inputId) {
+        const input = document.getElementById(inputId);
+        input.value = input.value.replace(/[^0-9]/g, ""); // Menghapus karakter non-angka
+      }
+    </script>
+  </body>
+</html>

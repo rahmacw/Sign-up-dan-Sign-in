@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="sign-in.css" />
+    <!-- Font Awesome CDN -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <title>Sign In</title>
+  </head>
+  <body>
+    <div class="sign-in">
+      <div class="content-wrapper">
+        <div class="welcome-section">
+          <div class="logo-wrapper">
+            <img
+              src="images/logo/logo-update.jpg"
+              alt="Logo Kebun Jambu Marina"
+              class="logo"
+            />
+          </div>
+          <h1>Selamat Datang!</h1>
+          <p class="description">
+            Kebun Jambu Marina menawarkan berbagai kegiatan seru dan edukatif
+            untuk semua kalangan. Mulai dari memetik jambu merah segar langsung
+            dari kebunnya, berkuda mengelilingi perkebunan yang asri, hingga
+            berburu spot foto instagramable di antara hamparan hijau yang
+            mempesona.
+          </p>
+        </div>
+
+        <div class="form-section">
+          <h2>Sign In</h2>
+          <p style="margin-left: 5px">
+            Belum punya akun? <a href="/signup">Sign Up</a>
+          </p>
+          <form action="/signin" method="post">
+            <label>Username/Email/Telepon</label>
+            <input
+              type="text"
+              name="login"
+              required
+              placeholder="Masukkan username / email / telepon"
+            />
+
+            <label>Password</label>
+            <div class="password-field">
+              <input
+                type="password"
+                name="password"
+                id="password-input"
+                required
+                placeholder="Masukkan password"
+              />
+              <i
+                class="fas fa-eye-slash icon-eye"
+                onclick="togglePasswordVisibility()"
+              ></i>
+            </div>
+
+            <button type="submit">Sign In</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function togglePasswordVisibility() {
+        const passwordInput = document.getElementById("password-input");
+        const eyeIcon = document.querySelector(".icon-eye");
+
+        if (passwordInput.type === "password") {
+          passwordInput.type = "text";
+          eyeIcon.classList.remove("fa-eye-slash");
+          eyeIcon.classList.add("fa-eye");
+        } else {
+          passwordInput.type = "password";
+          eyeIcon.classList.remove("fa-eye");
+          eyeIcon.classList.add("fa-eye-slash");
+        }
+      }
+    </script>
+  </body>
+</html>
